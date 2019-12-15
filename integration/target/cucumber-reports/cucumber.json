@@ -1,0 +1,253 @@
+[
+  {
+    "line": 2,
+    "elements": [
+      {
+        "line": 11,
+        "name": "Validacion StatusCode APIs persona",
+        "description": "",
+        "id": "validation-api-persona;validacion-statuscode-apis-persona;;2",
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 13081273,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "un cliente rest",
+            "match": {
+              "location": "IntegrationStepDefinition.un_cliente_rest()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 155237203,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "se invoca a la url \"/api/personas/listar\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/api/personas/listar\"",
+                  "offset": 19
+                }
+              ],
+              "location": "IntegrationStepDefinition.se_invoca_a_la_url(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 197672,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "se obtiene el estado http 200",
+            "match": {
+              "arguments": [
+                {
+                  "val": "200",
+                  "offset": 26
+                }
+              ],
+              "location": "IntegrationStepDefinition.se_obtiene_el_estado_http(int)"
+            },
+            "keyword": "Then "
+          }
+        ]
+      },
+      {
+        "line": 12,
+        "name": "Validacion StatusCode APIs persona",
+        "description": "",
+        "id": "validation-api-persona;validacion-statuscode-apis-persona;;3",
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 479391,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "un cliente rest",
+            "match": {
+              "location": "IntegrationStepDefinition.un_cliente_rest()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 53494111,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "se invoca a la url \"/api/personas/find/1\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/api/personas/find/1\"",
+                  "offset": 19
+                }
+              ],
+              "location": "IntegrationStepDefinition.se_invoca_a_la_url(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 193298,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "se obtiene el estado http 200",
+            "match": {
+              "arguments": [
+                {
+                  "val": "200",
+                  "offset": 26
+                }
+              ],
+              "location": "IntegrationStepDefinition.se_obtiene_el_estado_http(int)"
+            },
+            "keyword": "Then "
+          }
+        ]
+      },
+      {
+        "line": 22,
+        "name": "Validacion",
+        "description": "",
+        "id": "validation-api-persona;validacion;;2",
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 440594,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "un cliente rest",
+            "match": {
+              "location": "IntegrationStepDefinition.un_cliente_rest()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 23841007,
+              "status": "passed"
+            },
+            "line": 17,
+            "name": "se invoca a la url \"/api/personas/listar\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/api/personas/listar\"",
+                  "offset": 19
+                }
+              ],
+              "location": "IntegrationStepDefinition.se_invoca_a_la_url(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 121723914,
+              "status": "passed"
+            },
+            "line": 18,
+            "name": "se valida que el campo \"$[0].nombre\" sea \"william\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"$[0].nombre\"",
+                  "offset": 23
+                },
+                {
+                  "val": "\"william\"",
+                  "offset": 41
+                }
+              ],
+              "location": "IntegrationStepDefinition.se_valida_que_el_campo_sea(String,String)"
+            },
+            "keyword": "Then "
+          }
+        ]
+      },
+      {
+        "line": 23,
+        "name": "Validacion",
+        "description": "",
+        "id": "validation-api-persona;validacion;;3",
+        "type": "scenario",
+        "keyword": "Scenario Outline",
+        "steps": [
+          {
+            "result": {
+              "duration": 432674,
+              "status": "passed"
+            },
+            "line": 16,
+            "name": "un cliente rest",
+            "match": {
+              "location": "IntegrationStepDefinition.un_cliente_rest()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 14925109,
+              "status": "passed"
+            },
+            "line": 17,
+            "name": "se invoca a la url \"/api/personas/find/2\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"/api/personas/find/2\"",
+                  "offset": 19
+                }
+              ],
+              "location": "IntegrationStepDefinition.se_invoca_a_la_url(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 387075,
+              "status": "passed"
+            },
+            "line": 18,
+            "name": "se valida que el campo \"$.nombre\" sea \"pepito\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"$.nombre\"",
+                  "offset": 23
+                },
+                {
+                  "val": "\"pepito\"",
+                  "offset": 38
+                }
+              ],
+              "location": "IntegrationStepDefinition.se_valida_que_el_campo_sea(String,String)"
+            },
+            "keyword": "Then "
+          }
+        ]
+      }
+    ],
+    "name": "Validation api persona",
+    "description": "",
+    "id": "validation-api-persona",
+    "keyword": "Feature",
+    "uri": "src/test/resources/features/integration-test.feature",
+    "tags": []
+  }
+]

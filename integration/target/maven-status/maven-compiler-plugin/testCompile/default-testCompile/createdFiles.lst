@@ -1,0 +1,4 @@
+integration_test/cucumber/spring/config/TestingConfig.class
+junit/JunitRunnerTest.class
+integration_test/cucumber/spring/testing/IntegrationStepDefinition.class
+integration_test/cucumber/runner/CucumberRunner.class

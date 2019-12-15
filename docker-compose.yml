@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+
+ api-persona:
+    build: ./api-persona
+    image: marcosechague/jdevops-apipersona
+    restart: always
+    ports:
+     - 8000:8080
+    environment:
+     - host=mysql_server
+     - port=3306
+    depends_on:
+     - mysql_server
+
+ api-preferencia:
+    build: ./api-preferencia
+    image: marcosechague/jdevops-apipreferencia
+    restart: always
+    ports:
+     - 9000:8090
+    environment:
+     - url_apipersona=api-persona
+     - host=mysql_server
+     - port=3306
+    depends_on:
+     - mysql_server
+     - api-persona
+
+ mysql_server:
+    build: ./basedatos
+    image: marcosechague/jdevops-bd
+    restart: always
