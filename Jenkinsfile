@@ -6,7 +6,7 @@ pipeline {
 
    environment {
         SONAR_HOST = 'http://172.18.0.1:9000'
-        NETWORK_AUX = "bridge"
+        NETWORK_AUX = "javadevops_net"
         CONTAINER_NAME = "api-persona"
         HOST_APP = "http://${CONTAINER_NAME}:9000"
         APP_HEALTHCHECK = "${HOST_APP}/status/verificar"
