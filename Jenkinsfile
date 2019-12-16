@@ -107,11 +107,14 @@ pipeline {
         }
 */
 
-       /* withCredentials([sshUserPrivateKey(credentialsId: "yourkeyid", keyFileVariable: 'keyfile')]) {
-            stage('scp-f/b') {
-                sh "scp -i ${keyfile} do sth here"
+          
+	 stage('Deploy') {
+	    sshagent(credentials: ['productionId']) {  
+                sh "scp api-persona.war root@172.105.98.225:/tmp"
             }
-        }*/
+        }
+       
+        /*
         stage('Deploy'){
               steps{
                   script {
@@ -120,6 +123,6 @@ pipeline {
                       }
                    }
               }
-        }
+        }/*
     }
 }
