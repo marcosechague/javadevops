@@ -107,22 +107,14 @@ pipeline {
         }
 */
 
-          
-	 stage('Deploy') {
-	    sshagent(credentials: ['productionId']) {  
-                sh "scp api-persona.war root@172.105.98.225:/tmp"
-            }
-        }
-       
-        /*
         stage('Deploy'){
               steps{
                   script {
-                      sshagent (credentials: ['root-daniel3738175']) {
+                      sshagent (credentials: ['productionId']) {
                         sh 'scp api-persona/target/api-persona.war root@http://172.105.98.225:/tmp'
                       }
                    }
               }
-        }*/
+        }
     }
 }
