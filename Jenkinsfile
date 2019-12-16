@@ -111,7 +111,7 @@ pipeline {
               steps{
                   script {
                       sshagent (credentials: ['productionId']) {
-                        sh 'scp api-persona/target/api-persona.war root@http://172.105.98.225:/tmp'
+                        sh 'scp api-persona/target/api-persona.war root@172.105.98.225:/tmp'
                       }
                    }
               }
