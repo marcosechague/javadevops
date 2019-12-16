@@ -23,7 +23,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Unit Test'){
             steps{
                 script {
@@ -33,19 +33,19 @@ pipeline {
                 }
             }
         }
-        
-        stage('Integration Test'){
+
+ /*       stage('Integration Test'){
             steps{
                 parallel(
                     test: {
                         script {
                             try{
                                 echo "### creating environment with docker-compose ###"
-                               
+
                                     docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}" -v "/var/run/docker.sock:/var/run/docker.sock"') {
                                         sh "docker-compose up -d --build"
                                         sh "docker network connect ${NETWORK_AUX} ${CONTAINER_NAME}"
-                                        
+
                                         //waiting for the application
                                         timeout(time: 300, unit: 'SECONDS') {
                                             waitUntil {
@@ -67,15 +67,15 @@ pipeline {
                                         sh "docker-compose down -v"
                                     }
                             }catch(err){
-                                echo "Error: ${err}" 
+                                echo "Error: ${err}"
                                 try{
                                     dir("aplicativo"){
-                                        docker.image('wjma90/mvn3-jdk8-curso-devops').inside('--network="${NETWORK_AUX}"  -v "/var/run/docker.sock:/var/run/docker.sock"') {
+                                        docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}"  -v "/var/run/docker.sock:/var/run/docker.sock"') {
                                             sh "docker-compose down -v"
                                         }
                                     }
                                 }catch(err2){
-                                    echo "Error2: ${err2}" 
+                                    echo "Error2: ${err2}"
                                 }
 
                                 error "Integration TEST with ERROR... Please verify"
@@ -95,7 +95,7 @@ pipeline {
                                     }
                                 }
                             }
-	
+
 	                   docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}" -v "/var/run/docker.sock:/var/run/docker.sock"') {
                                     sh "docker-compose ps"
                                     sh "docker-compose logs -f ${CONTAINER_NAME} mysql_server"
@@ -104,6 +104,22 @@ pipeline {
                     }
                 )
             }
+        }
+*/
+
+       /* withCredentials([sshUserPrivateKey(credentialsId: "yourkeyid", keyFileVariable: 'keyfile')]) {
+            stage('scp-f/b') {
+                sh "scp -i ${keyfile} do sth here"
+            }
+        }*/
+        stage('Deploy'){
+              steps{
+                  script {
+                      sshagent (credentials: ['root-daniel3738175']) {
+                        sh 'scp api-persona/target/api-persona.war root@http://172.105.98.225:/tmp'
+                      }
+                   }
+              }
         }
     }
 }
