@@ -119,7 +119,7 @@ pipeline {
 
         stage('Deploy v2'){
             steps{
-                withCredentials([sshUserPrivateKey(credentialsSSH: "productionId", keyFileVariable: 'keyfile')]) {
+                withCredentials([sshUserPrivateKey(credentialsSSH: "productionSSHv2", keyFileVariable: 'keyfile')]) {
                     sh "scp -i ${keyfile} api-persona/target/api-persona.war root@172.105.98.225:/tmp"
                 }
             }
