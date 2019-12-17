@@ -9,7 +9,8 @@ pipeline {
         CONTAINER_NAME = "api-persona"
         HOST_APP = "http://${CONTAINER_NAME}:9000"
         APP_HEALTHCHECK = "${HOST_APP}/status/verificar"
-        HOST_PRODUCTION = "172.105.98.225" 
+        HOST_PRODUCTION = "172.26.0.3"
+        PATH_DEPLOY_PRODUCTION = "/opt/tomcat/webapps/"
     }
 
     stages {
@@ -110,7 +111,7 @@ pipeline {
         stage('Deploy'){
             steps{
                 withCredentials([sshUserPrivateKey(credentialsSSH: "productionSSHv2", keyFileVariable: 'keyfile')]) {
-                    sh "scp -i ${keyfile} api-persona/target/api-persona.war root@:${HOST_PRODUCTION}/opt/tomcat/webapps/"
+                    sh "scp -i ${keyfile} api-persona/target/api-persona.war root@:${HOST_PRODUCTION}${PATH_DEPLOY_PRODUCTION}}"
                 }
             }
         }

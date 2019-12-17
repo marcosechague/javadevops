@@ -2,15 +2,31 @@ version: '3.4'
 
 services:
 
-   jenkins:
+  tomcat:
+    image: tomcat:8.5-jdk8
+    ports:
+      - 8282:8080
+    restart: on-failure
+    networks:
+      - netjd
+
+  jenkins:
     image: marcosechague/jenkinsjd
     user: root
     ports:
       - "8181:8080"
       - "8443:8443"
       - "50000:50000"
+    networks:
+      - netjd
     volumes:
       - jenkins-data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+
 volumes:
   jenkins-data:
+
+networks:
+  netjd :
+    driver : bridge
+
