@@ -107,7 +107,7 @@ pipeline {
         }
 */
 
-        stage('Deploy'){
+        /*stage('Deploy'){
               steps{
                   script {
                       sshagent (credentials: ['productionId']) {
@@ -115,7 +115,7 @@ pipeline {
                       }
                    }
               }
-        }
+        }*/
 
         stage('Deploy v2'){
             steps{
