@@ -118,9 +118,11 @@ pipeline {
         }
 
         stage('Deploy v2'){
-            withCredentials([sshUserPrivateKey(credentialsId: "productionId", keyFileVariable: 'keyfile')]) {
-                stage('scp-f/b') {
-                    sh "scp -i ${keyfile} api-persona/target/api-persona.war root@172.105.98.225:/tmp"
+            steps{
+                withCredentials([sshUserPrivateKey(credentialsId: "productionId", keyFileVariable: 'keyfile')]) {
+                    stage('scp-f/b') {
+                        sh "scp -i ${keyfile} api-persona/target/api-persona.war root@172.105.98.225:/tmp"
+                    }   
                 }
             }
         }
