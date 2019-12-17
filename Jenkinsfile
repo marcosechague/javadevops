@@ -5,6 +5,7 @@ pipeline {
     agent any
 
    environment {
+    
         NETWORK_AUX = "javadevops_net"
         CONTAINER_NAME = "api-persona"
         HOST_APP = "http://${CONTAINER_NAME}:9000"
@@ -34,6 +35,7 @@ pipeline {
                 }
             }
         }
+        
 
         stage('Integration Test'){
             steps{
@@ -108,12 +110,22 @@ pipeline {
         }
 
 
-        stage('Deploy'){
+        /*stage('Deploy'){
             steps{
                 withCredentials([sshUserPrivateKey(credentialsSSH: "productionSSHv2", keyFileVariable: 'keyfile')]) {
                     sh "scp -i ${keyfile} api-persona/target/api-persona.war root@:${HOST_PRODUCTION}${PATH_DEPLOY_PRODUCTION}}"
                 }
             }
+        }*/
+
+        stage ('Deploy') {
+    steps{
+        sshagent(credentials : ['productionSSHv2']) {
+            sh 'ssh -o StrictHostKeyChecking=no root@tomcat uptime'
+            sh 'ssh -v root@tomcat'
+            sh 'scp api-persona/target/api-persona.war root@:${HOST_PRODUCTION}${PATH_DEPLOY_PRODUCTION}}'
         }
+    }
+}
     }
 }
