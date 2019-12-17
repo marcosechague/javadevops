@@ -3,7 +3,7 @@ version: '3.4'
 services:
 
    jenkins:
-    image: marcosechague/jenkins-javadevops
+    image: marcosechague/jenkinsjd
     user: root
     ports:
       - "8181:8080"
