@@ -20,7 +20,7 @@ services:
     image: marcosechague/apipreferencia-exam
     restart: always
     ports:
-     - 8090:8090
+     - 9000:8090
     environment:
      - url_apipersona=api-persona
      - host=mysql_server
