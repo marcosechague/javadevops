@@ -37,83 +37,60 @@ pipeline {
         }
         
 
-       /* stage('Integration Test'){
+        stage('Integration Test'){
             steps{
-                parallel(
-                    test: {
-                        script {
-                            try{
-                                echo "### creating environment with docker-compose ###"
+                script {
+                    try{
 
-                                    docker.image('marcosechague/jdk8-mvn-docker-compose').inside('-v "/var/run/docker.sock:/var/run/docker.sock"') {
-                                        sh "docker-compose up -d --build"
-                                        sh "docker network ls"
-                                    }
-
-                                    docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}" -v "/var/run/docker.sock:/var/run/docker.sock"') {
-                                        //sh "docker-compose up -d --build"
-                                        //sh "docker network connect ${NETWORK_AUX} ${CONTAINER_NAME}"
-
-                                        //waiting for the application
-                                        timeout(time: 50, unit: 'SECONDS') {
-                                            waitUntil {
-                                                try {
-                                                    sh "curl -s --head  --request GET  ${APP_HEALTHCHECK} | grep '200'"
-                                                    return true
-                                                } catch (Exception e) {
-                                                        return false
-                                                }
-                                            }
-                                        }
-
-                                        echo "### HUBO CONEXION CON LA APLICACION ###"
-
-                                        sh "mvn -Dmaven.repo.local=/home/.m2/repository -f integration/pom.xml --batch-mode test -Dbackend=${HOST_APP}"
-
-                                        echo "### Integration TEST FINISHED ###"
-
-                                        //sh "docker-compose down -v"
-                                    }
-                            }catch(err){
-                                echo "Error traing to execute the integration test : ${err}"
-                                try{
-                                    
-                                    docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}"  -v "/var/run/docker.sock:/var/run/docker.sock"') {
-                                        //sh "docker-compose down -v"
-                                    }
-                                
-                                }catch(err2){
-                                    echo "Error2: ${err2}"
-                                }
-
-                                error "Integration TEST with ERROR... Please verify"
-                            }
+                        echo "### creating environment with docker-compose ###"
+                        docker.image('marcosechague/jdk8-mvn-docker-compose').inside('-v "/var/run/docker.sock:/var/run/docker.sock"') {
+                            sh "docker-compose up -d --build"
+                            sh "docker network ls"
                         }
-                    },
-                    logs : {
-                        script {
+                        
+                        docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}" -v "/var/run/docker.sock:/var/run/docker.sock"') {
+                            
+                            //sh "docker network connect ${NETWORK_AUX} ${CONTAINER_NAME}"
+                            
                             //waiting for the application
-                            timeout(time: 55, unit: 'SECONDS') {
+                            timeout(time: 300, unit: 'SECONDS') {
                                 waitUntil {
                                     try {
                                         sh "curl -s --head  --request GET  ${APP_HEALTHCHECK} | grep '200'"
                                         return true
                                     } catch (Exception e) {
-                                        sh "echo 'Error en la conexion'"
-                                        return true
+                                        return false
                                     }
                                 }
                             }
-
-	                   docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}" -v "/var/run/docker.sock:/var/run/docker.sock"') {
-                                    sh "docker-compose ps"
-                                    sh "docker-compose logs -f api-persona mysql_server"
-                            }
+                            
+                            echo "### HUBO CONEXION CON LA APLICACION ###"
+                            
+                            sh "mvn -f integration/pom.xml --batch-mode test -Dbackend=${HOST_APP}"
+                            
+                            echo "### Integration TEST FINISHED ###"
+                            
+                            //sh "docker-compose down -v"
                         }
+
+                        docker.image('marcosechague/jdk8-mvn-docker-compose').inside('-v "/var/run/docker.sock:/var/run/docker.sock"') {
+                            sh "docker-compose down -v"
+                        }
+                    }catch(err){
+                        echo "Error: ${err}"
+                        try{
+                            docker.image('marcosechague/jdk8-mvn-docker-compose').inside('-v "/var/run/docker.sock:/var/run/docker.sock"') {
+                                sh "docker-compose down -v"
+                            }
+                        }catch(err2){
+                            echo "Error2: ${err2}"
+                        }
+
+                        error "Integration TEST with ERROR... Please verify"
                     }
-                )
+                }
             }
-        }*/
+        }
 
 
         stage('Deploy'){
