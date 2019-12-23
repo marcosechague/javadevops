@@ -6,8 +6,8 @@ pipeline {
 
    environment {
     
-        NETWORK_AUX = "javadevops_master_default"
-        CONTAINER_NAME = "api-persona-exam"
+        NETWORK_AUX = "javadevops_master_default_exam"
+        CONTAINER_NAME = "api-persona"
         HOST_APP = "http://${CONTAINER_NAME}:8080"
         APP_HEALTHCHECK = "${HOST_APP}/status/verificar"
         HOST_PRODUCTION = "172.26.0.3"
@@ -75,7 +75,7 @@ pipeline {
                                         sh "docker-compose down -v"
                                     }
                             }catch(err){
-                                echo "Error: ${err}"
+                                echo "Error traing to execute the integration test : ${err}"
                                 try{
                                     
                                     docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}"  -v "/var/run/docker.sock:/var/run/docker.sock"') {
