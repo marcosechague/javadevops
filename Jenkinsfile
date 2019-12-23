@@ -6,9 +6,9 @@ pipeline {
 
    environment {
     
-        NETWORK_AUX = "javadevops_net"
+        NETWORK_AUX = "javadevops_master_default"
         CONTAINER_NAME = "api-persona"
-        HOST_APP = "http://${CONTAINER_NAME}:9000"
+        HOST_APP = "http://${CONTAINER_NAME}:8080"
         APP_HEALTHCHECK = "${HOST_APP}/status/verificar"
         HOST_PRODUCTION = "172.26.0.3"
         PATH_DEPLOY_PRODUCTION = "/opt/tomcat/webapps/"
@@ -45,9 +45,14 @@ pipeline {
                             try{
                                 echo "### creating environment with docker-compose ###"
 
-                                    docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}" -v "/var/run/docker.sock:/var/run/docker.sock"') {
+                                    docker.image('marcosechague/jdk8-mvn-docker-compose').inside('-v "/var/run/docker.sock:/var/run/docker.sock"') {
                                         sh "docker-compose up -d --build"
-                                        sh "docker network connect ${NETWORK_AUX} ${CONTAINER_NAME}"
+                                        sh "docker network ls"
+                                    }
+
+                                    docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}" -v "/var/run/docker.sock:/var/run/docker.sock"') {
+                                        //sh "docker-compose up -d --build"
+                                        //sh "docker network connect ${NETWORK_AUX} ${CONTAINER_NAME}"
 
                                         //waiting for the application
                                         timeout(time: 300, unit: 'SECONDS') {
@@ -118,14 +123,14 @@ pipeline {
             }
         }*/
 
-        stage ('Deploy') {
-    steps{
-        sshagent(credentials : ['productionSSHv2']) {
-            sh 'ssh -o StrictHostKeyChecking=no root@tomcat uptime'
-            sh 'ssh -v root@tomcat'
-            sh 'scp api-persona/target/api-persona.war root@:${HOST_PRODUCTION}${PATH_DEPLOY_PRODUCTION}}'
-        }
-    }
-}
+        /*stage ('Deploy') {
+            steps{
+                sshagent(credentials : ['productionSSHv2']) {
+                    sh 'ssh -o StrictHostKeyChecking=no root@tomcat uptime'
+                    sh 'ssh -v root@tomcat'
+                    sh 'scp api-persona/target/api-persona.war root@:${HOST_PRODUCTION}${PATH_DEPLOY_PRODUCTION}}'
+                }
+            }
+        }*/
     }
 }
