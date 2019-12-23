@@ -22,7 +22,7 @@ ENV database="demobd"
 ENV username="root"
 ENV password="toor"
 
-COPY --from=builder /app/target/api*.war app.war
+COPY --from=builder /app/target/api-persona.war /workspace/app.war
 
 EXPOSE 8080
 ENTRYPOINT exec java -jar /workspace/app.war
