@@ -118,8 +118,7 @@ pipeline {
 
         stage('Deploy'){
             steps{
-                script
-                {
+                docker.image('marcosechague/jdk8-mvn-docker-compose').inside('-v "/var/run/docker.sock:/var/run/docker.sock"') {
                     sh "docker cp api-persona/target/api-persona.war ${HOST_PRODUCTION}":"${PATH_DEPLOY_PRODUCTION}"
                 }
             }
