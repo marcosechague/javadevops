@@ -4,7 +4,7 @@ services:
 
  api-persona:
     build: ./api-persona
-    image: marcosechague/jdevops-apipersona
+    image: marcosechague/apipersona-exam
     restart: always
     container_name: api-persona
     ports:
@@ -17,7 +17,7 @@ services:
 
  api-preferencia:
     build: ./api-preferencia
-    image: marcosechague/jdevops-apipreferencia
+    image: marcosechague/apipreferencia-exam
     restart: always
     ports:
      - 9000:8090

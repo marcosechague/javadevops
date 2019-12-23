@@ -8,7 +8,7 @@ pipeline {
     
         NETWORK_AUX = "javadevops_master_default"
         CONTAINER_NAME = "api-persona"
-        HOST_APP = "http://${CONTAINER_NAME}:8080"
+        HOST_APP = "http://${CONTAINER_NAME}:8000"
         APP_HEALTHCHECK = "${HOST_APP}/status/verificar"
         HOST_PRODUCTION = "172.26.0.3"
         PATH_DEPLOY_PRODUCTION = "/opt/tomcat/webapps/"
