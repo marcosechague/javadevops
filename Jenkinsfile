@@ -8,7 +8,7 @@ pipeline {
     
         NETWORK_AUX = "javadevops_master_default"
         CONTAINER_NAME = "api-persona"
-        HOST_APP = "http://${CONTAINER_NAME}:8000"
+        HOST_APP = "http://${CONTAINER_NAME}:8080"
         APP_HEALTHCHECK = "${HOST_APP}/status/verificar"
         HOST_PRODUCTION = "172.26.0.3"
         PATH_DEPLOY_PRODUCTION = "/opt/tomcat/webapps/"
@@ -77,11 +77,11 @@ pipeline {
                             }catch(err){
                                 echo "Error: ${err}"
                                 try{
-                                    dir("aplicativo"){
-                                        docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}"  -v "/var/run/docker.sock:/var/run/docker.sock"') {
-                                            sh "docker-compose down -v"
-                                        }
+                                    
+                                    docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}"  -v "/var/run/docker.sock:/var/run/docker.sock"') {
+                                        sh "docker-compose down -v"
                                     }
+                                
                                 }catch(err2){
                                     echo "Error2: ${err2}"
                                 }
@@ -99,6 +99,7 @@ pipeline {
                                         sh "curl -s --head  --request GET  ${APP_HEALTHCHECK} | grep '200'"
                                         return true
                                     } catch (Exception e) {
+                                        sh "echo 'Error en la conexion'"
                                         return false
                                     }
                                 }
