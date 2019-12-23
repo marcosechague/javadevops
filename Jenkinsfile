@@ -68,7 +68,7 @@ pipeline {
 
                                         echo "### HUBO CONEXION CON LA APLICACION ###"
 
-                                        sh "mvn -Dmaven.repo.local=/home/.m2/repository -f ../	integration/pom.xml --batch-mode test -Dbackend=${HOST_APP}"
+                                        sh "mvn -Dmaven.repo.local=/home/.m2/repository -f ../integration/pom.xml --batch-mode test -Dbackend=${HOST_APP}"
 
                                         echo "### Integration TEST FINISHED ###"
 
