@@ -11,7 +11,7 @@ pipeline {
         HOST_APP = "http://${CONTAINER_NAME}:8080"
         APP_HEALTHCHECK = "${HOST_APP}/status/verificar"
         HOST_PRODUCTION = "tomcat_javadevops"
-        PATH_DEPLOY_PRODUCTION = "/usr/local/tomcat/webapps"
+        PATH_DEPLOY_PRODUCTION = ":/usr/local/tomcat/webapps"
     }
 
     stages {
@@ -120,7 +120,7 @@ pipeline {
             steps{
                 script{
                     docker.image('marcosechague/jdk8-mvn-docker-compose').inside('-v "/var/run/docker.sock:/var/run/docker.sock"') {
-                    sh "docker cp api-persona/target/api-persona.war ${HOST_PRODUCTION}":"${PATH_DEPLOY_PRODUCTION}"
+                    sh "docker cp api-persona/target/api-persona.war ${HOST_PRODUCTION}${PATH_DEPLOY_PRODUCTION}"
                 }
                 }
             }
