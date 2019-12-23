@@ -118,6 +118,7 @@ pipeline {
 
         stage('Deploy'){
             steps{
+                script
                 {
                     sh "docker cp api-persona/target/api-persona.war ${HOST_PRODUCTION}":"${PATH_DEPLOY_PRODUCTION}"
                 }
