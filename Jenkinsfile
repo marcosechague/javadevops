@@ -72,14 +72,14 @@ pipeline {
 
                                         echo "### Integration TEST FINISHED ###"
 
-                                        sh "docker-compose down -v"
+                                        //sh "docker-compose down -v"
                                     }
                             }catch(err){
                                 echo "Error traing to execute the integration test : ${err}"
                                 try{
                                     
                                     docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}"  -v "/var/run/docker.sock:/var/run/docker.sock"') {
-                                        sh "docker-compose down -v"
+                                        //sh "docker-compose down -v"
                                     }
                                 
                                 }catch(err2){
