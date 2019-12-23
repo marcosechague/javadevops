@@ -37,7 +37,7 @@ pipeline {
         }
         
 
-        stage('Integration Test'){
+       /* stage('Integration Test'){
             steps{
                 parallel(
                     test: {
@@ -113,7 +113,7 @@ pipeline {
                     }
                 )
             }
-        }
+        }*/
 
 
         stage('Deploy'){
