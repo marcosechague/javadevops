@@ -55,7 +55,7 @@ pipeline {
                                         //sh "docker network connect ${NETWORK_AUX} ${CONTAINER_NAME}"
 
                                         //waiting for the application
-                                        timeout(time: 300, unit: 'SECONDS') {
+                                        timeout(time: 50, unit: 'SECONDS') {
                                             waitUntil {
                                                 try {
                                                     sh "curl -s --head  --request GET  ${APP_HEALTHCHECK} | grep '200'"
@@ -93,14 +93,14 @@ pipeline {
                     logs : {
                         script {
                             //waiting for the application
-                            timeout(time: 330, unit: 'SECONDS') {
+                            timeout(time: 55, unit: 'SECONDS') {
                                 waitUntil {
                                     try {
                                         sh "curl -s --head  --request GET  ${APP_HEALTHCHECK} | grep '200'"
                                         return true
                                     } catch (Exception e) {
                                         sh "echo 'Error en la conexion'"
-                                        return false
+                                        return true
                                     }
                                 }
                             }
