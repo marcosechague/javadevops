@@ -7,7 +7,7 @@ pipeline {
    environment {
     
         NETWORK_AUX = "javadevops_master_default"
-        CONTAINER_NAME = "api-persona"
+        CONTAINER_NAME = "api-persona-exam"
         HOST_APP = "http://${CONTAINER_NAME}:8080"
         APP_HEALTHCHECK = "${HOST_APP}/status/verificar"
         HOST_PRODUCTION = "172.26.0.3"
