@@ -7,7 +7,7 @@ pipeline {
    environment {
     
         NETWORK_AUX = "javadevops_master_default_exam"
-        CONTAINER_NAME = "api-persona"
+        CONTAINER_NAME = "api-persona-exam"
         HOST_APP = "http://${CONTAINER_NAME}:8080"
         APP_HEALTHCHECK = "${HOST_APP}/status/verificar"
         HOST_PRODUCTION = "172.26.0.3"
@@ -107,7 +107,7 @@ pipeline {
 
 	                   docker.image('marcosechague/jdk8-mvn-docker-compose').inside('--network="${NETWORK_AUX}" -v "/var/run/docker.sock:/var/run/docker.sock"') {
                                     sh "docker-compose ps"
-                                    sh "docker-compose logs -f ${CONTAINER_NAME} mysql_server"
+                                    sh "docker-compose logs -f api-persona mysql_server"
                             }
                         }
                     }

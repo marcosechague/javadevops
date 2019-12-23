@@ -6,7 +6,7 @@ services:
     build: ./api-persona
     image: marcosechague/apipersona-exam
     restart: always
-    container_name: api-persona
+    container_name: api-persona-exam
     ports:
      - 8080:8080
     environment:
