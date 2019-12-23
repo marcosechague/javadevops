@@ -7,6 +7,7 @@ services:
     ports:
       - 8282:8080
     restart: on-failure
+    container_name: tomcat_javadevops
     networks:
       - netjd
 

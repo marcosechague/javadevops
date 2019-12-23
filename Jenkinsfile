@@ -10,8 +10,8 @@ pipeline {
         CONTAINER_NAME = "api-persona-exam"
         HOST_APP = "http://${CONTAINER_NAME}:8080"
         APP_HEALTHCHECK = "${HOST_APP}/status/verificar"
-        HOST_PRODUCTION = "172.26.0.3"
-        PATH_DEPLOY_PRODUCTION = "/opt/tomcat/webapps/"
+        HOST_PRODUCTION = "tomcat_javadevops"
+        PATH_DEPLOY_PRODUCTION = "/usr/local/tomcat/webapps"
     }
 
     stages {
@@ -116,13 +116,13 @@ pipeline {
         }
 
 
-        /*stage('Deploy'){
+        stage('Deploy'){
             steps{
-                withCredentials([sshUserPrivateKey(credentialsSSH: "productionSSHv2", keyFileVariable: 'keyfile')]) {
-                    sh "scp -i ${keyfile} api-persona/target/api-persona.war root@:${HOST_PRODUCTION}${PATH_DEPLOY_PRODUCTION}}"
+                {
+                    sh "docker cp api-persona/target/api-persona.war ${HOST_PRODUCTION}":"${PATH_DEPLOY_PRODUCTION}"
                 }
             }
-        }*/
+        }
 
         /*stage ('Deploy') {
             steps{
