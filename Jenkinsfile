@@ -102,15 +102,5 @@ pipeline {
                 }
             }
         }
-
-        /*stage ('Deploy') {
-            steps{
-                sshagent(credentials : ['productionSSHv2']) {
-                    sh 'ssh -o StrictHostKeyChecking=no root@tomcat uptime'
-                    sh 'ssh -v root@tomcat'
-                    sh 'scp api-persona/target/api-persona.war root@:${HOST_PRODUCTION}${PATH_DEPLOY_PRODUCTION}}'
-                }
-            }
-        }*/
     }
 }
